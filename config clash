@@ -1,0 +1,1801 @@
+{
+    "log": {
+        "level": "warn",
+        "timestamp": true
+    },
+    "dns": {
+        "servers": [
+            {
+                "type": "https",
+                "server": "172.20.10.1",
+                "detour": "✅ Selector",
+                "tag": "dns-remote"
+            },
+            {
+                "type": "udp",
+                "server": "172.20.10.1",
+                "server_port": 53,
+                "tag": "dns-direct"
+            },
+            {
+                "type": "fakeip",
+                "tag": "dns-fake",
+                "inet4_range": "198.18.0.0/15"
+            }
+        ],
+        "rules": [
+            {
+                "domain": [
+                    "raw.githubusercontent.com"
+                ],
+                "server": "dns-fake"
+            },
+            {
+                "clash_mode": "Direct",
+                "server": "dns-fake"
+            },
+            {
+                "clash_mode": "Global",
+                "server": "dns-remote"
+            },
+            {
+                "rule_set": [
+                    "geosite-malware",
+                    "geosite-phishing",
+                    "geosite-cryptominers"
+                ],
+                "action": "reject"
+            },
+            {
+                "disable_cache": true,
+                "inbound": "tun-in",
+                "query_type": [
+                    "A",
+                    "AAAA"
+                ],
+                "server": "dns-fake"
+            }
+        ],
+        "strategy": "ipv4_only",
+        "independent_cache": true
+    },
+    "inbounds": [
+        {
+            "type": "tun",
+            "tag": "tun-in",
+            "address": [
+                "172.18.0.1/30"
+            ],
+            "mtu": 1074,
+            "auto_route": true,
+            "strict_route": true,
+            "endpoint_independent_nat": true,
+            "stack": "mixed"
+        },
+        {
+            "type": "mixed",
+            "tag": "mixed-in",
+            "listen": "0.0.0.0",
+            "listen_port": 2080
+        }
+    ],
+    "outbounds": [
+        {
+            "type": "selector",
+            "tag": "✅ Selector",
+            "outbounds": [
+                "💦 Best Ping 💥",
+                "💦 1 - VLESS - Domain : 443",
+                "💦 2 - VLESS - Domain : 443",
+                "💦 3 - VLESS - IPv4 : 443",
+                "💦 4 - VLESS - IPv4 : 443",
+                "💦 5 - VLESS - Clean IP : 443",
+                "💦 6 - VLESS - Clean IP : 443",
+                "💦 7 - VLESS - Clean IP : 443",
+                "💦 8 - VLESS - Clean IP : 443",
+                "💦 9 - VLESS - Clean IP : 443",
+                "💦 10 - VLESS - Clean IP : 443",
+                "💦 11 - VLESS - Clean IP : 443",
+                "💦 12 - VLESS - Clean IP : 443",
+                "💦 13 - VLESS - Clean IP : 443",
+                "💦 14 - VLESS - Clean IP : 443",
+                "💦 15 - VLESS - Clean IP : 443",
+                "💦 16 - VLESS - Clean IP : 443",
+                "💦 17 - VLESS - Clean IP : 443",
+                "💦 18 - VLESS - Clean IP : 443",
+                "💦 19 - VLESS - Clean IP : 443",
+                "💦 20 - VLESS - Clean IP : 443",
+                "💦 21 - VLESS - Clean IP : 443",
+                "💦 22 - VLESS - Clean IP : 443",
+                "💦 23 - VLESS - Clean IP : 443",
+                "💦 24 - VLESS - Clean IP : 443",
+                "💦 25 - VLESS - Clean IP : 443",
+                "💦 26 - VLESS - Clean IP : 443",
+                "💦 27 - VLESS - Clean IP : 443",
+                "💦 28 - VLESS - Clean IP : 443",
+                "💦 29 - VLESS - Clean IP : 443",
+                "💦 30 - VLESS - Clean IP : 443",
+                "💦 31 - VLESS - Clean IP : 443",
+                "💦 32 - VLESS - Clean IP : 443",
+                "💦 33 - VLESS - Clean IP : 443",
+                "💦 34 - VLESS - Clean IP : 443",
+                "💦 35 - VLESS - Clean IP : 443",
+                "💦 36 - VLESS - Clean IP : 443",
+                "💦 37 - VLESS - Clean IP : 443",
+                "💦 38 - VLESS - Clean IP : 443",
+                "💦 39 - VLESS - Clean IP : 443",
+                "💦 40 - VLESS - Clean IP : 443",
+                "💦 41 - VLESS - Clean IP : 443",
+                "💦 42 - VLESS - Clean IP : 443"
+            ]
+        },
+        {
+            "type": "direct",
+            "tag": "direct"
+        },
+        {
+            "type": "urltest",
+            "tag": "💦 Best Ping 💥",
+            "outbounds": [
+                "💦 1 - VLESS - Domain : 443",
+                "💦 2 - VLESS - Domain : 443",
+                "💦 3 - VLESS - IPv4 : 443",
+                "💦 4 - VLESS - IPv4 : 443",
+                "💦 5 - VLESS - Clean IP : 443",
+                "💦 6 - VLESS - Clean IP : 443",
+                "💦 7 - VLESS - Clean IP : 443",
+                "💦 8 - VLESS - Clean IP : 443",
+                "💦 9 - VLESS - Clean IP : 443",
+                "💦 10 - VLESS - Clean IP : 443",
+                "💦 11 - VLESS - Clean IP : 443",
+                "💦 12 - VLESS - Clean IP : 443",
+                "💦 13 - VLESS - Clean IP : 443",
+                "💦 14 - VLESS - Clean IP : 443",
+                "💦 15 - VLESS - Clean IP : 443",
+                "💦 16 - VLESS - Clean IP : 443",
+                "💦 17 - VLESS - Clean IP : 443",
+                "💦 18 - VLESS - Clean IP : 443",
+                "💦 19 - VLESS - Clean IP : 443",
+                "💦 20 - VLESS - Clean IP : 443",
+                "💦 21 - VLESS - Clean IP : 443",
+                "💦 22 - VLESS - Clean IP : 443",
+                "💦 23 - VLESS - Clean IP : 443",
+                "💦 24 - VLESS - Clean IP : 443",
+                "💦 25 - VLESS - Clean IP : 443",
+                "💦 26 - VLESS - Clean IP : 443",
+                "💦 27 - VLESS - Clean IP : 443",
+                "💦 28 - VLESS - Clean IP : 443",
+                "💦 29 - VLESS - Clean IP : 443",
+                "💦 30 - VLESS - Clean IP : 443",
+                "💦 31 - VLESS - Clean IP : 443",
+                "💦 32 - VLESS - Clean IP : 443",
+                "💦 33 - VLESS - Clean IP : 443",
+                "💦 34 - VLESS - Clean IP : 443",
+                "💦 35 - VLESS - Clean IP : 443",
+                "💦 36 - VLESS - Clean IP : 443",
+                "💦 37 - VLESS - Clean IP : 443",
+                "💦 38 - VLESS - Clean IP : 443",
+                "💦 39 - VLESS - Clean IP : 443",
+                "💦 40 - VLESS - Clean IP : 443",
+                "💦 41 - VLESS - Clean IP : 443",
+                "💦 42 - VLESS - Clean IP : 443"
+            ],
+            "url": "https://www.gstatic.com/generate_204",
+            "interval": "30s"
+        },
+        {
+            "tag": "💦 1 - VLESS - Domain : 443",
+            "type": "vless",
+            "server": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/RvfFlSWCQXik3Pyz",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "yaSin0alLEN01vVeD1-FP7rSn1xLHKD9r6.Y-YA30N.worKErs.deV",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 2 - VLESS - Domain : 443",
+            "type": "vless",
+            "server": "www.speedtest.net",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/X5I9nUkC3lUo6MzI",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "yASIn0ALlen01vVEd1-FP7Rsn1xLhKD9R6.Y-yA30N.wOrKErS.DeV",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 3 - VLESS - IPv4 : 443",
+            "type": "vless",
+            "server": "104.21.22.121",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/7ntaeNwpLkNQlBnJ",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "yaSin0aLlEn01vvED1-Fp7Rsn1XLhkd9r6.y-ya30N.WORkERS.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 4 - VLESS - IPv4 : 443",
+            "type": "vless",
+            "server": "172.67.204.205",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/rcm28U44FMdWfrRa",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "YasIn0aLLEn01VVED1-FP7rSN1xLhkD9R6.y-Ya30n.WOrkers.dEv",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 5 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "2.26.61.126",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/9d1wR4IhuQCD1gAi",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "YASin0AlLEN01vvEd1-FP7rsN1xlHKD9R6.y-YA30N.woRkeRs.dEv",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 6 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "2.26.108.197",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/qwprBYWajZOiel3Q",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "YAsiN0AllEn01vvEd1-Fp7rsN1XlHkd9R6.y-ya30N.workERs.deV",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 7 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "5.75.182.89",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/pfU8QDeu2PmUhrEe",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "yasIN0AllEn01VvED1-fp7RSN1xlHKD9R6.Y-ya30N.wORkErS.DEV",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 8 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "5.75.220.97",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/PIjPdcs2hT0D2h7T",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "yAsIN0alLeN01vvED1-fP7rSN1XlhKd9r6.y-YA30n.worKeRs.DEV",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 9 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "5.180.82.38",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/JldHXrlinlHt9Cmx",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "YaSIN0ALlEn01vVed1-fP7RSn1xLHKd9r6.y-Ya30n.wORkeRS.dEV",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 10 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "31.76.96.60",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/v7Nlt1DhmndEypxT",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "YaSIn0allEN01vveD1-fP7Rsn1xlHKD9r6.Y-ya30n.wOrkErS.DEV",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 11 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "46.38.241.239",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/GMAvs0FuAcoiyIyi",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "YaSIN0Allen01vVed1-Fp7RSN1XlHkd9r6.y-Ya30N.WoRkERS.dEV",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 12 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "47.245.131.215",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/gxWNRNrjTYdVWl30",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "yaSiN0Allen01VVeD1-FP7RSN1xLhkD9r6.Y-yA30n.wORkErs.dEV",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 13 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "77.239.104.60",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/tnYNLqUVD5IpkEG9",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "yasiN0Allen01VVED1-Fp7RsN1xLHKD9r6.y-YA30N.WORKeRS.dEv",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 14 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "77.239.104.216",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/J2LBNxz1HcG99v8b",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "YASIN0aLleN01vVeD1-fP7rsN1XlHkD9r6.Y-yA30N.WoRKeRS.DEv",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 15 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "78.47.150.18",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/5eClYwFTXENncYsN",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "yAsin0ALlEn01VvEd1-FP7RSN1XLHKD9R6.y-Ya30n.WORkERs.dEv",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 16 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "79.132.138.87",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/F4Mbczc0HLDg9bg1",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "YAsiN0aLLEN01VvED1-FP7RsN1xLhkd9R6.y-Ya30n.WoRkERs.DEV",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 17 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "84.200.77.75",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/ry8vaSfh5dXm6KqB",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "YaSIN0ALlen01vVED1-fp7RSN1XLHkd9R6.y-Ya30N.woRKERs.DEV",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 18 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "85.208.139.48",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/65pzo4wIU3yWKOOo",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "YasIn0ALLEn01vVEd1-FP7RSn1xLHKd9R6.Y-Ya30n.worKErs.dEv",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 19 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "88.198.149.98",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/TJERfp8IYPduPISp",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "yAsIn0AlleN01VVed1-FP7rsN1XLhkd9r6.y-yA30n.wOrKerS.deV",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 20 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "89.40.117.143",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/LUYbjezC397lQhKN",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "yaSin0AlLEN01Vved1-Fp7RsN1xlHkD9R6.y-yA30n.WorkErS.deV",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 21 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "89.106.78.212",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/cSS1q0v4LufVrKhs",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "YASin0alleN01VVeD1-Fp7rSn1XlhKd9R6.Y-ya30n.WORKERs.dEV",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 22 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "89.106.78.217",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/cVVjyw510gZXrMeI",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "YAsIn0aLLeN01VVeD1-fP7RsN1xLHkD9R6.y-Ya30n.workers.DEv",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 23 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "108.165.236.6",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/ZjRH0T9fjrzGx4ly",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "YaSiN0AlLEN01VvED1-Fp7rSN1xlHKd9R6.Y-Ya30n.wOrKeRS.Dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 24 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "109.122.197.126",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/34U91C5WoMj5lGPx",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "YASIN0allEn01vVEd1-fp7rsn1XLHkD9r6.y-Ya30n.WorKErs.deV",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 25 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "109.122.197.185",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/7iG7j3C41HP60Fh6",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "YasiN0allEN01VVeD1-FP7RsN1XLhkd9r6.y-ya30N.WoRKeRS.Dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 26 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "116.203.58.165",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/q1DFno5pTOEiHwpB",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "yAsin0ALLeN01vveD1-fp7RsN1XlHKd9r6.y-YA30n.WORkErs.Dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 27 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "144.31.72.69",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/Puo4DUTOaHwemEw8",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "YASin0aLLeN01VvED1-fp7rSN1XLHkD9r6.Y-ya30n.wORkeRS.DEv",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 28 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "150.241.105.185",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/BOuspgWObiMo7mKB",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "yASIN0AllEN01vvEd1-fp7rSN1XLhkD9R6.y-Ya30N.woRKERS.DEV",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 29 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "150.241.108.48",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/QsotLzKQyTrVpaYW",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "YASiN0ALLen01VVEd1-FP7rSn1XlHkd9R6.Y-yA30N.WORKeRs.dEv",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 30 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "178.105.227.210",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/lkzlF3dE2RrCDJKV",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "YasiN0AlleN01vVEd1-Fp7rSn1XlHKD9R6.Y-YA30n.workers.DEV",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 31 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "188.68.43.154",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/jWzOon7B3CPlomDA",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "yAsiN0AlLeN01vVeD1-FP7RSN1XLHKD9R6.Y-YA30n.wORkers.dEV",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 32 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "192.124.182.154",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/heoeABy26faxjyxg",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "yAsiN0allEn01vved1-Fp7rsn1XlHkd9r6.y-ya30n.WOrkErS.DeV",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 33 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "193.23.219.31",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/8Zh48Olx204lv33u",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "YASin0alLEN01vved1-fP7rSn1XLhkD9r6.Y-YA30n.wORkeRS.dEv",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 34 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "193.23.219.155",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/pCsX3eyp4aE1UirK",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "yAsIN0AllEN01vVed1-fp7rSn1XLhKd9r6.Y-YA30N.wORKErs.Dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 35 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "193.168.201.18",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/nNwELjn7Q2c6jpsm",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "Yasin0aLlEN01VVeD1-fp7rSn1XlhkD9r6.Y-Ya30N.workers.DEv",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 36 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "193.233.86.136",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/sQpWzsad1ArcB0Hn",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "YASiN0alLeN01VVEd1-FP7rsn1xLHKD9R6.Y-YA30n.wORKERS.deV",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 37 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "194.37.80.244",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/I6inqY7Tjd3Pw7pg",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "YAsIN0AllEN01vVED1-fp7RSn1XlHkD9R6.y-ya30n.WorKerS.Dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 38 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "195.58.39.173",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/r0THpKkvTeLXa5Df",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "YAsin0allEN01VVEd1-Fp7rsn1xLhKD9R6.Y-Ya30N.WorKERs.dEv",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 39 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "195.133.65.83",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/c2ExWB3bXoidxVxK",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "yaSin0AlleN01VVED1-Fp7RSN1xlhkD9r6.Y-YA30N.WOrKerS.dEv",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 40 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "195.133.193.94",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/WOStLCMYsFKBtyqy",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "yASIn0ALLEn01vveD1-Fp7RSN1Xlhkd9r6.y-YA30n.WORkERs.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 41 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "206.245.130.38",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/ilL4vc2VcRrHQGAS",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "YAsin0aLLen01vVED1-Fp7rsN1XlHKd9R6.Y-yA30N.worKerS.deV",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 42 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "213.21.241.85",
+            "server_port": 443,
+            "uuid": "cef5e47a-d161-4210-b579-d31b08363152",
+            "network": "tcp",
+            "packet_encoding": "packetaddr",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "yasin0allen01vved1-fp7rsn1xlhkd9r6.y-ya30n.workers.dev"
+                },
+                "path": "/S5MvSuG1TYxGY6kP",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-fake",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2,http/1.1",
+                "enabled": true,
+                "insecure": true,
+                "server_name": "yAsin0aLlEn01VveD1-fp7rsn1XlHkD9r6.y-Ya30n.workeRS.DEv",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        }
+    ],
+    "route": {
+        "rules": [
+            {
+                "ip_cidr": "172.18.0.2",
+                "action": "hijack-dns"
+            },
+            {
+                "clash_mode": "Direct",
+                "outbound": "direct"
+            },
+            {
+                "clash_mode": "Global",
+                "outbound": "✅ Selector"
+            },
+            {
+                "action": "sniff"
+            },
+            {
+                "protocol": "dns",
+                "action": "hijack-dns"
+            },
+            {
+                "network": "udp",
+                "action": "✅ Selector"
+            },
+            {
+                "rule_set": [
+                    "geosite-malware",
+                    "geosite-phishing",
+                    "geosite-cryptominers"
+                ],
+                "action": "reject"
+            },
+            {
+                "rule_set": [
+                    "geoip-malware",
+                    "geoip-phishing"
+                ],
+                "action": "reject"
+            }
+        ],
+        "rule_set": [
+            {
+                "type": "remote",
+                "tag": "geosite-malware",
+                "format": "binary",
+                "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-malware.srs",
+                "download_detour": "direct"
+            },
+            {
+                "type": "remote",
+                "tag": "geoip-malware",
+                "format": "binary",
+                "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geoip-malware.srs",
+                "download_detour": "direct"
+            },
+            {
+                "type": "remote",
+                "tag": "geosite-phishing",
+                "format": "binary",
+                "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-phishing.srs",
+                "download_detour": "direct"
+            },
+            {
+                "type": "remote",
+                "tag": "geoip-phishing",
+                "format": "binary",
+                "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geoip-phishing.srs",
+                "download_detour": "direct"
+            },
+            {
+                "type": "remote",
+                "tag": "geosite-cryptominers",
+                "format": "binary",
+                "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-cryptominers.srs",
+                "download_detour": "direct"
+            }
+        ],
+        "auto_detect_interface": true,
+        "final": "✅ Selector"
+    },
+    "ntp": {
+        "enabled": true,
+        "server": "time.cloudflare.com",
+        "server_port": 123,
+        "domain_resolver": "dns-direct",
+        "interval": "30m",
+        "write_to_system": false
+    },
+    "experimental": {
+        "cache_file": {
+            "enabled": true,
+            "store_fakeip": true
+        },
+        "clash_api": {
+            "external_controller": "127.0.0.1:9090",
+            "external_ui": "ui",
+            "external_ui_download_url": "https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip",
+            "external_ui_download_detour": "direct",
+            "default_mode": "Rule"
+        }
+    }
+}
