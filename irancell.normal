@@ -1,1934 +1,1841 @@
-[
-    {
-        "remarks": "💦 1 - Trojan - Domain : 80",
-        "version": {
-            "min": "25.10.15"
-        },
-        "log": {
-            "loglevel": "warning"
-        },
-        "dns": {
-            "servers": [
-                {
-                    "address": "https://8.8.8.8/dns-query",
-                    "tag": "remote-dns"
-                },
-                {
-                    "address": "76.76.2.175",
-                    "domains": [
-                        "full:yasin---uyjdutefggfddgg.p-ya30n.workers.dev"
-                    ],
-                    "skipFallback": true
-                }
-            ],
-            "queryStrategy": "UseIP",
-            "tag": "dns"
-        },
-        "inbounds": [
-            {
-                "listen": "127.0.0.1",
-                "port": 10808,
-                "protocol": "socks",
-                "settings": {
-                    "auth": "noauth",
-                    "udp": true
-                },
-                "sniffing": {
-                    "destOverride": [
-                        "http",
-                        "tls"
-                    ],
-                    "enabled": true,
-                    "routeOnly": true
-                },
-                "tag": "mixed-in"
-            },
-            {
-                "listen": "127.0.0.1",
-                "port": 10853,
-                "protocol": "dokodemo-door",
-                "settings": {
-                    "address": "1.1.1.1",
-                    "network": "tcp,udp",
-                    "port": 53
-                },
-                "tag": "dns-in"
-            }
-        ],
-        "outbounds": [
-            {
-                "protocol": "trojan",
-                "settings": {
-                    "servers": [
-                        {
-                            "address": "yasin---uyjdutefggfddgg.p-ya30n.workers.dev",
-                            "port": 80,
-                            "password": "}qE6zkl(xo<["
-                        }
-                    ]
-                },
-                "streamSettings": {
-                    "network": "ws",
-                    "wsSettings": {
-                        "host": "yasin---uyjdutefggfddgg.p-ya30n.workers.dev",
-                        "path": "/eyJqdW5rIjoidTI3YktUbTN5RiIsInByb3RvY29sIjoidHIiLCJtb2RlIjoicHJveHlpcCIsInBhbmVsSVBzIjpbXX0=?ed=2560"
-                    },
-                    "security": "none",
-                    "sockopt": {
-                        "domainStrategy": "UseIP",
-                        "happyEyeballs": {
-                            "tryDelayMs": 250,
-                            "prioritizeIPv6": false,
-                            "interleave": 2,
-                            "maxConcurrentTry": 4
-                        }
-                    }
-                },
-                "tag": "proxy"
-            },
-            {
-                "protocol": "dns",
-                "settings": {
-                    "nonIPQuery": "reject"
-                },
-                "tag": "dns-out"
-            },
-            {
-                "protocol": "freedom",
-                "settings": {
-                    "domainStrategy": "UseIP"
-                },
-                "tag": "direct"
-            },
-            {
-                "protocol": "blackhole",
-                "settings": {
-                    "response": {
-                        "type": "http"
-                    }
-                },
-                "tag": "block"
-            }
-        ],
-        "routing": {
-            "domainStrategy": "IPIfNonMatch",
-            "rules": [
-                {
-                    "inboundTag": [
-                        "mixed-in"
-                    ],
-                    "port": 53,
-                    "outboundTag": "dns-out",
-                    "type": "field"
-                },
-                {
-                    "inboundTag": [
-                        "dns-in"
-                    ],
-                    "outboundTag": "dns-out",
-                    "type": "field"
-                },
-                {
-                    "inboundTag": [
-                        "remote-dns"
-                    ],
-                    "outboundTag": "proxy",
-                    "type": "field"
-                },
-                {
-                    "inboundTag": [
-                        "dns"
-                    ],
-                    "outboundTag": "direct",
-                    "type": "field"
-                },
-                {
-                    "domain": [
-                        "geosite:private"
-                    ],
-                    "outboundTag": "direct",
-                    "type": "field"
-                },
-                {
-                    "ip": [
-                        "geoip:private"
-                    ],
-                    "outboundTag": "direct",
-                    "type": "field"
-                },
-                {
-                    "network": "udp",
-                    "outboundTag": "block",
-                    "type": "field"
-                },
-                {
-                    "network": "tcp",
-                    "outboundTag": "proxy",
-                    "type": "field"
-                }
-            ]
-        },
-        "policy": {
-            "levels": {
-                "0": {
-                    "connIdle": 300,
-                    "handshake": 4,
-                    "uplinkOnly": 1,
-                    "downlinkOnly": 1
-                }
-            },
-            "system": {
-                "statsOutboundUplink": true,
-                "statsOutboundDownlink": true
-            }
-        },
-        "stats": {}
+{
+    "log": {
+        "level": "warn",
+        "timestamp": true
     },
-    {
-        "remarks": "💦 2 - Trojan - Domain : 80",
-        "version": {
-            "min": "25.10.15"
-        },
-        "log": {
-            "loglevel": "warning"
-        },
-        "dns": {
-            "servers": [
-                {
-                    "address": "https://8.8.8.8/dns-query",
-                    "tag": "remote-dns"
-                },
-                {
-                    "address": "76.76.2.175",
-                    "domains": [
-                        "full:www.speedtest.net"
-                    ],
-                    "skipFallback": true
-                }
-            ],
-            "queryStrategy": "UseIP",
-            "tag": "dns"
-        },
-        "inbounds": [
+    "dns": {
+        "servers": [
             {
-                "listen": "127.0.0.1",
-                "port": 10808,
-                "protocol": "socks",
-                "settings": {
-                    "auth": "noauth",
-                    "udp": true
-                },
-                "sniffing": {
-                    "destOverride": [
-                        "http",
-                        "tls"
-                    ],
-                    "enabled": true,
-                    "routeOnly": true
-                },
-                "tag": "mixed-in"
+    "type": "quic",
+    "server": "dns.google",
+    "server_port": 853,
+    "server_name": "dns.google",
+    "detour": "✅ Selector",
+    "tag": "dns-remote"
+},
+            {
+                "type": "udp",
+                "server": "172.20.10.2",
+                "server_port": 53,
+                "tag": "dns-direct"
             },
             {
-                "listen": "127.0.0.1",
-                "port": 10853,
-                "protocol": "dokodemo-door",
-                "settings": {
-                    "address": "1.1.1.1",
-                    "network": "tcp,udp",
-                    "port": 53
-                },
-                "tag": "dns-in"
+                "type": "fakeip",
+                "tag": "dns-fake",
+                "inet4_range": "198.18.0.0/15"
             }
         ],
-        "outbounds": [
+        "rules": [
             {
-                "protocol": "trojan",
-                "settings": {
-                    "servers": [
-                        {
-                            "address": "www.speedtest.net",
-                            "port": 80,
-                            "password": "}qE6zkl(xo<["
-                        }
-                    ]
-                },
-                "streamSettings": {
-                    "network": "ws",
-                    "wsSettings": {
-                        "host": "yasin---uyjdutefggfddgg.p-ya30n.workers.dev",
-                        "path": "/eyJqdW5rIjoiQWJhem9GYzlDWGYiLCJwcm90b2NvbCI6InRyIiwibW9kZSI6InByb3h5aXAiLCJwYW5lbElQcyI6W119?ed=2560"
-                    },
-                    "security": "none",
-                    "sockopt": {
-                        "domainStrategy": "UseIP",
-                        "happyEyeballs": {
-                            "tryDelayMs": 250,
-                            "prioritizeIPv6": false,
-                            "interleave": 2,
-                            "maxConcurrentTry": 4
-                        }
-                    }
-                },
-                "tag": "proxy"
+                "domain": [
+                    "raw.githubusercontent.com"
+                ],
+                "server": "dns-direct"
             },
             {
-                "protocol": "dns",
-                "settings": {
-                    "nonIPQuery": "reject"
-                },
-                "tag": "dns-out"
+                "clash_mode": "Direct",
+                "server": "dns-direct"
             },
             {
-                "protocol": "freedom",
-                "settings": {
-                    "domainStrategy": "UseIP"
-                },
-                "tag": "direct"
+                "clash_mode": "Global",
+                "server": "dns-remote"
             },
             {
-                "protocol": "blackhole",
-                "settings": {
-                    "response": {
-                        "type": "http"
-                    }
-                },
-                "tag": "block"
+                "rule_set": [
+                    "geosite-malware",
+                    "geosite-phishing",
+                    "geosite-cryptominers"
+                ],
+                "action": "reject"
+            },
+            {
+                "disable_cache": true,
+                "inbound": "tun-in",
+                "query_type": [
+                    "A",
+                    "AAAA"
+                ],
+                "server": "dns-fake"
             }
         ],
-        "routing": {
-            "domainStrategy": "IPIfNonMatch",
-            "rules": [
-                {
-                    "inboundTag": [
-                        "mixed-in"
-                    ],
-                    "port": 53,
-                    "outboundTag": "dns-out",
-                    "type": "field"
-                },
-                {
-                    "inboundTag": [
-                        "dns-in"
-                    ],
-                    "outboundTag": "dns-out",
-                    "type": "field"
-                },
-                {
-                    "inboundTag": [
-                        "remote-dns"
-                    ],
-                    "outboundTag": "proxy",
-                    "type": "field"
-                },
-                {
-                    "inboundTag": [
-                        "dns"
-                    ],
-                    "outboundTag": "direct",
-                    "type": "field"
-                },
-                {
-                    "domain": [
-                        "geosite:private"
-                    ],
-                    "outboundTag": "direct",
-                    "type": "field"
-                },
-                {
-                    "ip": [
-                        "geoip:private"
-                    ],
-                    "outboundTag": "direct",
-                    "type": "field"
-                },
-                {
-                    "network": "udp",
-                    "outboundTag": "block",
-                    "type": "field"
-                },
-                {
-                    "network": "tcp",
-                    "outboundTag": "proxy",
-                    "type": "field"
-                }
-            ]
-        },
-        "policy": {
-            "levels": {
-                "0": {
-                    "connIdle": 300,
-                    "handshake": 4,
-                    "uplinkOnly": 1,
-                    "downlinkOnly": 1
-                }
-            },
-            "system": {
-                "statsOutboundUplink": true,
-                "statsOutboundDownlink": true
-            }
-        },
-        "stats": {}
+        "strategy": "ipv4_only",
+        "independent_cache": true
     },
-    {
-        "remarks": "💦 3 - Trojan - IPv4 : 80",
-        "version": {
-            "min": "25.10.15"
-        },
-        "log": {
-            "loglevel": "warning"
-        },
-        "dns": {
-            "servers": [
-                {
-                    "address": "https://8.8.8.8/dns-query",
-                    "tag": "remote-dns"
-                }
+    "inbounds": [
+        {
+            "type": "tun",
+            "tag": "tun-in",
+            "address": [
+                "172.18.0.1/30"
             ],
-            "queryStrategy": "UseIP",
-            "tag": "dns"
+            "mtu": 1350,
+            "auto_route": true,
+            "strict_route": true,
+            "endpoint_independent_nat": true,
+            "stack": "mixed"
         },
-        "inbounds": [
-            {
-                "listen": "127.0.0.1",
-                "port": 10808,
-                "protocol": "socks",
-                "settings": {
-                    "auth": "noauth",
-                    "udp": true
+        {
+            "type": "mixed",
+            "tag": "mixed-in",
+            "listen": "0.0.0.0",
+            "listen_port": 2080
+        }
+    ],
+    "outbounds": [
+        {
+            "type": "selector",
+            "tag": "✅ Selector",
+            "outbounds": [
+                "💦 Best Ping 💥",
+                "💦 1 - VLESS - Domain : 443",
+                "💦 2 - VLESS - Domain : 443",
+                "💦 3 - VLESS - IPv4 : 443",
+                "💦 4 - VLESS - IPv4 : 443",
+                "💦 5 - VLESS - Clean IP : 443",
+                "💦 6 - VLESS - Clean IP : 443",
+                "💦 7 - VLESS - Clean IP : 443",
+                "💦 8 - VLESS - Clean IP : 443",
+                "💦 9 - VLESS - Clean IP : 443",
+                "💦 10 - VLESS - Clean IP : 443",
+                "💦 11 - VLESS - Clean IP : 443",
+                "💦 12 - VLESS - Clean IP : 443",
+                "💦 13 - VLESS - Clean IP : 443",
+                "💦 14 - VLESS - Clean IP : 443",
+                "💦 15 - VLESS - Clean IP : 443",
+                "💦 16 - VLESS - Clean IP : 443",
+                "💦 17 - VLESS - Clean IP : 443",
+                "💦 18 - VLESS - Clean IP : 443",
+                "💦 19 - VLESS - Clean IP : 443",
+                "💦 20 - VLESS - Clean IP : 443",
+                "💦 21 - VLESS - Clean IP : 443",
+                "💦 22 - VLESS - Clean IP : 443",
+                "💦 23 - VLESS - Clean IP : 443",
+                "💦 24 - VLESS - Clean IP : 443",
+                "💦 25 - VLESS - Clean IP : 443",
+                "💦 26 - VLESS - Clean IP : 443",
+                "💦 27 - VLESS - Clean IP : 443",
+                "💦 28 - VLESS - Clean IP : 443",
+                "💦 29 - VLESS - Clean IP : 443",
+                "💦 30 - VLESS - Clean IP : 443",
+                "💦 31 - VLESS - Clean IP : 443",
+                "💦 32 - VLESS - Clean IP : 443",
+                "💦 33 - VLESS - Clean IP : 443",
+                "💦 34 - VLESS - Clean IP : 443",
+                "💦 35 - VLESS - Clean IP : 443",
+                "💦 36 - VLESS - Clean IP : 443",
+                "💦 37 - VLESS - Clean IP : 443",
+                "💦 38 - VLESS - Clean IP : 443",
+                "💦 39 - VLESS - Clean IP : 443",
+                "💦 40 - VLESS - Clean IP : 443",
+                "💦 41 - VLESS - Clean IP : 443",
+                "💦 42 - VLESS - Clean IP : 443",
+                "💦 43 - VLESS - Clean IP : 443"
+            ]
+        },
+        {
+            "type": "direct",
+            "tag": "direct"
+        },
+        {
+            "type": "urltest",
+            "tag": "💦 Best Ping 💥",
+            "outbounds": [
+                "💦 1 - VLESS - Domain : 443",
+                "💦 2 - VLESS - Domain : 443",
+                "💦 3 - VLESS - IPv4 : 443",
+                "💦 4 - VLESS - IPv4 : 443",
+                "💦 5 - VLESS - Clean IP : 443",
+                "💦 6 - VLESS - Clean IP : 443",
+                "💦 7 - VLESS - Clean IP : 443",
+                "💦 8 - VLESS - Clean IP : 443",
+                "💦 9 - VLESS - Clean IP : 443",
+                "💦 10 - VLESS - Clean IP : 443",
+                "💦 11 - VLESS - Clean IP : 443",
+                "💦 12 - VLESS - Clean IP : 443",
+                "💦 13 - VLESS - Clean IP : 443",
+                "💦 14 - VLESS - Clean IP : 443",
+                "💦 15 - VLESS - Clean IP : 443",
+                "💦 16 - VLESS - Clean IP : 443",
+                "💦 17 - VLESS - Clean IP : 443",
+                "💦 18 - VLESS - Clean IP : 443",
+                "💦 19 - VLESS - Clean IP : 443",
+                "💦 20 - VLESS - Clean IP : 443",
+                "💦 21 - VLESS - Clean IP : 443",
+                "💦 22 - VLESS - Clean IP : 443",
+                "💦 23 - VLESS - Clean IP : 443",
+                "💦 24 - VLESS - Clean IP : 443",
+                "💦 25 - VLESS - Clean IP : 443",
+                "💦 26 - VLESS - Clean IP : 443",
+                "💦 27 - VLESS - Clean IP : 443",
+                "💦 28 - VLESS - Clean IP : 443",
+                "💦 29 - VLESS - Clean IP : 443",
+                "💦 30 - VLESS - Clean IP : 443",
+                "💦 31 - VLESS - Clean IP : 443",
+                "💦 32 - VLESS - Clean IP : 443",
+                "💦 33 - VLESS - Clean IP : 443",
+                "💦 34 - VLESS - Clean IP : 443",
+                "💦 35 - VLESS - Clean IP : 443",
+                "💦 36 - VLESS - Clean IP : 443",
+                "💦 37 - VLESS - Clean IP : 443",
+                "💦 38 - VLESS - Clean IP : 443",
+                "💦 39 - VLESS - Clean IP : 443",
+                "💦 40 - VLESS - Clean IP : 443",
+                "💦 41 - VLESS - Clean IP : 443",
+                "💦 42 - VLESS - Clean IP : 443",
+                "💦 43 - VLESS - Clean IP : 443"
+            ],
+            "url": "https://www.gstatic.com/generate_204",
+            "interval": "30s"
+        },
+        {
+            "tag": "💦 1 - VLESS - Domain : 443",
+            "type": "vless",
+            "server": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
                 },
-                "sniffing": {
-                    "destOverride": [
-                        "http",
-                        "tls"
-                    ],
+                "path": "/kAjtsKZ1vi9TGdSH",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
                     "enabled": true,
-                    "routeOnly": true
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 2 - VLESS - Domain : 443",
+            "type": "vless",
+            "server": "www.speedtest.net",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
                 },
-                "tag": "mixed-in"
+                "path": "/z,;qU6Yi3XJ2:x+2_P8",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 3 - VLESS - IPv4 : 443",
+            "type": "vless",
+            "server": "104.21.22.121",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/xpef9WHecK1WCE0C",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 4 - VLESS - IPv4 : 443",
+            "type": "vless",
+            "server": "172.67.204.205",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/eW7b0Yb7A98tolC6",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 5 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "92.118.8.206",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/jROxCWpedcQXr4Hu",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 6 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "167.71.45.93",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/pHl6uG4RZiARZklm",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 7 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "195.245.239.135",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/MdawU6wMGrXGMxSu",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 8 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "146.103.114.134",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/SxBXcaNgZd2aYAGI",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 9 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "185.66.165.51",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/wRANd0rhulDuk9zW",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 10 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "116.203.58.165",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/epjeyZLg02I3FXil",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 11 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "146.103.113.158",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/CP3pHNXfDcCrMJjZ",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 12 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "89.58.40.177",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/RpGZncoaYLf56271",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 13 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "91.199.118.151",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/ezs0QjUCOANjTUKn",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 14 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "188.245.161.141",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/mU9zk3BRgDSR2jei",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 15 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "152.53.12.245",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/EXbeovw13JEivxPW",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 16 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "62.60.216.204",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/OESz0U6eMwAWzLfv",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 17 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "91.107.171.251",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/E5tgoqVFezkgWoI8",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 18 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "194.87.71.141",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/rfYWfTOwWpbin0NR",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 19 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "79.132.138.87",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/xR5Z1RdyvV5mwmwb",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 20 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "89.169.34.99",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/3OupKHtpU2cmRqFa",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 21 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "91.107.251.113",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/dCBUzllX84wK1fiA",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 22 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "57.129.47.52",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/s5heMboPiyzbK9Ta",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 23 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "49.12.237.71",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/QBhx5GPrWtrzpKZ4",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 24 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "195.58.38.9",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/0Bvk2WPXOxB5ayHL",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 25 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "103.97.88.133",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/SPCg9I1Ao4tcwifD",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 26 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "64.188.68.11",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/tEe8x3WWVbiUaWW9",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 27 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "145.223.100.111",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/5h77pWfZMJ4t0QNk",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 28 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "91.107.250.153",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/716eQM3bRqmP1Qjx",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 29 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "91.107.158.77",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/LTVZUyQdudMlZimy",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 30 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "116.202.132.205",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/zLhQnPCaBQ0RL1R0",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 31 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "135.125.191.9",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/ndvAojbYQzuNXMIM",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 32 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "92.246.136.38",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/GIitrYLTl7lKDYAJ",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 33 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "91.107.255.196",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/CEnLKtrSxrMBCslr",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 34 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "89.58.13.3",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/X4BKtPsOPtwUEL8t",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 35 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "172.86.95.236",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/K7iTF7p0SeKhuQWV",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 36 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "91.107.148.154",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/WAhjNzMlr4jsD6eb",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 37 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "92.42.96.240",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/hc8VelBDG1aNAdEx",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 38 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "152.53.142.246",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/8n7whU32gJrj6ld0",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 39 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "91.107.155.13",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/lyenuXopMSxD8Inb",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 40 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "213.108.198.116",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/cCPWnXg6E1V72rBa",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 41 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "194.180.188.241",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/6DSOXLnAXcCqBrhz",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 42 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "134.209.136.197",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/CK4sMw9txLTdRTGW",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        },
+        {
+            "tag": "💦 43 - VLESS - Clean IP : 443",
+            "type": "vless",
+            "server": "194.180.188.184",
+            "server_port": 443,
+            "uuid": "5b4a64f6-1708-4908-ae0e-e8a2aaf5921d",
+            "network": "tcp",
+            "packet_encoding": "",
+            "transport": {
+                "early_data_header_name": "Sec-WebSocket-Protocol",
+                "max_early_data": 2560,
+                "headers": {
+                    "Host": "t2mzwnr6nad4d8xpmpbmr.pages.dev"
+                },
+                "path": "/HlpP2XAFZZOjF9qW",
+                "type": "ws"
+            },
+            "domain_resolver": {
+                "server": "dns-direct",
+                "strategy": "ipv4_only",
+                "rewrite_ttl": 60
+            },
+            "tcp_fast_open": true,
+            "tcp_multi_path": true,
+            "tls": {
+                "alpn": "h3,h2",
+                "enabled": true,
+                "insecure": false,
+                "server_name": "t2mzwnr6nad4d8xpmpbmr.pages.dev",
+                "record_fragment": false,
+                "utls": {
+                    "enabled": true,
+                    "fingerprint": "randomized"
+                }
+            }
+        }
+    ],
+    "route": {
+        "rules": [
+            {
+                "ip_cidr": "172.18.0.2",
+                "action": "hijack-dns"
             },
             {
-                "listen": "127.0.0.1",
-                "port": 10853,
-                "protocol": "dokodemo-door",
-                "settings": {
-                    "address": "1.1.1.1",
-                    "network": "tcp,udp",
-                    "port": 53
-                },
-                "tag": "dns-in"
-            }
-        ],
-        "outbounds": [
+                "clash_mode": "Direct",
+                "outbound": "direct"
+            },
             {
-                "protocol": "trojan",
-                "settings": {
-                    "servers": [
-                        {
-                            "address": "172.67.188.133",
-                            "port": 80,
-                            "password": "}qE6zkl(xo<["
-                        }
-                    ]
-                },
-                "streamSettings": {
-                    "network": "ws",
-                    "wsSettings": {
-                        "host": "yasin---uyjdutefggfddgg.p-ya30n.workers.dev",
-                        "path": "/eyJqdW5rIjoic1IxQ2Ezbm84biIsInByb3RvY29sIjoidHIiLCJtb2RlIjoicHJveHlpcCIsInBhbmVsSVBzIjpbXX0=?ed=2560"
-                    },
-                    "security": "none",
-                    "sockopt": {
-                        "domainStrategy": "UseIP",
-                        "happyEyeballs": {
-                            "tryDelayMs": 250,
-                            "prioritizeIPv6": false,
-                            "interleave": 2,
-                            "maxConcurrentTry": 4
-                        }
-                    }
-                },
-                "tag": "proxy"
+                "clash_mode": "Global",
+                "outbound": "✅ Selector"
+            },
+            {
+                "action": "sniff"
             },
             {
                 "protocol": "dns",
-                "settings": {
-                    "nonIPQuery": "reject"
-                },
-                "tag": "dns-out"
+                "action": "hijack-dns"
             },
             {
-                "protocol": "freedom",
-                "settings": {
-                    "domainStrategy": "UseIP"
-                },
-                "tag": "direct"
+                "network": "[]",
+                "action": "reject"
             },
             {
-                "protocol": "blackhole",
-                "settings": {
-                    "response": {
-                        "type": "http"
-                    }
-                },
-                "tag": "block"
+                "rule_set": [
+                    "geosite-malware",
+                    "geosite-phishing",
+                    "geosite-cryptominers"
+                ],
+                "action": "reject"
+            },
+            {
+                "rule_set": [
+                    "geoip-malware",
+                    "geoip-phishing"
+                ],
+                "action": "reject"
             }
         ],
-        "routing": {
-            "domainStrategy": "IPIfNonMatch",
-            "rules": [
-                {
-                    "inboundTag": [
-                        "mixed-in"
-                    ],
-                    "port": 53,
-                    "outboundTag": "dns-out",
-                    "type": "field"
-                },
-                {
-                    "inboundTag": [
-                        "dns-in"
-                    ],
-                    "outboundTag": "dns-out",
-                    "type": "field"
-                },
-                {
-                    "inboundTag": [
-                        "remote-dns"
-                    ],
-                    "outboundTag": "proxy",
-                    "type": "field"
-                },
-                {
-                    "inboundTag": [
-                        "dns"
-                    ],
-                    "outboundTag": "direct",
-                    "type": "field"
-                },
-                {
-                    "domain": [
-                        "geosite:private"
-                    ],
-                    "outboundTag": "direct",
-                    "type": "field"
-                },
-                {
-                    "ip": [
-                        "geoip:private"
-                    ],
-                    "outboundTag": "direct",
-                    "type": "field"
-                },
-                {
-                    "network": "udp",
-                    "outboundTag": "block",
-                    "type": "field"
-                },
-                {
-                    "network": "tcp",
-                    "outboundTag": "proxy",
-                    "type": "field"
-                }
-            ]
-        },
-        "policy": {
-            "levels": {
-                "0": {
-                    "connIdle": 300,
-                    "handshake": 4,
-                    "uplinkOnly": 1,
-                    "downlinkOnly": 1
-                }
+        "rule_set": [
+            {
+                "type": "remote",
+                "tag": "geosite-malware",
+                "format": "binary",
+                "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-malware.srs",
+                "download_detour": "direct"
             },
-            "system": {
-                "statsOutboundUplink": true,
-                "statsOutboundDownlink": true
+            {
+                "type": "remote",
+                "tag": "geoip-malware",
+                "format": "binary",
+                "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geoip-malware.srs",
+                "download_detour": "direct"
+            },
+            {
+                "type": "remote",
+                "tag": "geosite-phishing",
+                "format": "binary",
+                "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-phishing.srs",
+                "download_detour": "direct"
+            },
+            {
+                "type": "remote",
+                "tag": "geoip-phishing",
+                "format": "binary",
+                "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geoip-phishing.srs",
+                "download_detour": "direct"
+            },
+            {
+                "type": "remote",
+                "tag": "geosite-cryptominers",
+                "format": "binary",
+                "url": "https://raw.githubusercontent.com/Chocolate4U/Iran-sing-box-rules/rule-set/geosite-cryptominers.srs",
+                "download_detour": "direct"
             }
-        },
-        "stats": {}
+        ],
+        "auto_detect_interface": true,
+        "final": "✅ Selector"
     },
-    {
-        "remarks": "💦 4 - Trojan - IPv4 : 80",
-        "version": {
-            "min": "25.10.15"
-        },
-        "log": {
-            "loglevel": "warning"
-        },
-        "dns": {
-            "servers": [
-                {
-                    "address": "https://8.8.8.8/dns-query",
-                    "tag": "remote-dns"
-                }
-            ],
-            "queryStrategy": "UseIP",
-            "tag": "dns"
-        },
-        "inbounds": [
-            {
-                "listen": "127.0.0.1",
-                "port": 10808,
-                "protocol": "socks",
-                "settings": {
-                    "auth": "noauth",
-                    "udp": true
-                },
-                "sniffing": {
-                    "destOverride": [
-                        "http",
-                        "tls"
-                    ],
-                    "enabled": true,
-                    "routeOnly": true
-                },
-                "tag": "mixed-in"
-            },
-            {
-                "listen": "127.0.0.1",
-                "port": 10853,
-                "protocol": "dokodemo-door",
-                "settings": {
-                    "address": "1.1.1.1",
-                    "network": "tcp,udp",
-                    "port": 53
-                },
-                "tag": "dns-in"
-            }
-        ],
-        "outbounds": [
-            {
-                "protocol": "trojan",
-                "settings": {
-                    "servers": [
-                        {
-                            "address": "104.21.36.70",
-                            "port": 80,
-                            "password": "}qE6zkl(xo<["
-                        }
-                    ]
-                },
-                "streamSettings": {
-                    "network": "ws",
-                    "wsSettings": {
-                        "host": "yasin---uyjdutefggfddgg.p-ya30n.workers.dev",
-                        "path": "/eyJqdW5rIjoiS2RLcm8zZW14NyIsInByb3RvY29sIjoidHIiLCJtb2RlIjoicHJveHlpcCIsInBhbmVsSVBzIjpbXX0=?ed=2560"
-                    },
-                    "security": "none",
-                    "sockopt": {
-                        "domainStrategy": "UseIP",
-                        "happyEyeballs": {
-                            "tryDelayMs": 250,
-                            "prioritizeIPv6": false,
-                            "interleave": 2,
-                            "maxConcurrentTry": 4
-                        }
-                    }
-                },
-                "tag": "proxy"
-            },
-            {
-                "protocol": "dns",
-                "settings": {
-                    "nonIPQuery": "reject"
-                },
-                "tag": "dns-out"
-            },
-            {
-                "protocol": "freedom",
-                "settings": {
-                    "domainStrategy": "UseIP"
-                },
-                "tag": "direct"
-            },
-            {
-                "protocol": "blackhole",
-                "settings": {
-                    "response": {
-                        "type": "http"
-                    }
-                },
-                "tag": "block"
-            }
-        ],
-        "routing": {
-            "domainStrategy": "IPIfNonMatch",
-            "rules": [
-                {
-                    "inboundTag": [
-                        "mixed-in"
-                    ],
-                    "port": 53,
-                    "outboundTag": "dns-out",
-                    "type": "field"
-                },
-                {
-                    "inboundTag": [
-                        "dns-in"
-                    ],
-                    "outboundTag": "dns-out",
-                    "type": "field"
-                },
-                {
-                    "inboundTag": [
-                        "remote-dns"
-                    ],
-                    "outboundTag": "proxy",
-                    "type": "field"
-                },
-                {
-                    "inboundTag": [
-                        "dns"
-                    ],
-                    "outboundTag": "direct",
-                    "type": "field"
-                },
-                {
-                    "domain": [
-                        "geosite:private"
-                    ],
-                    "outboundTag": "direct",
-                    "type": "field"
-                },
-                {
-                    "ip": [
-                        "geoip:private"
-                    ],
-                    "outboundTag": "direct",
-                    "type": "field"
-                },
-                {
-                    "network": "udp",
-                    "outboundTag": "block",
-                    "type": "field"
-                },
-                {
-                    "network": "tcp",
-                    "outboundTag": "proxy",
-                    "type": "field"
-                }
-            ]
-        },
-        "policy": {
-            "levels": {
-                "0": {
-                    "connIdle": 300,
-                    "handshake": 4,
-                    "uplinkOnly": 1,
-                    "downlinkOnly": 1
-                }
-            },
-            "system": {
-                "statsOutboundUplink": true,
-                "statsOutboundDownlink": true
-            }
-        },
-        "stats": {}
+    "ntp": {
+        "enabled": true,
+        "server": "time.cloudflare.com",
+        "server_port": 123,
+        "domain_resolver": "dns-direct",
+        "interval": "30m",
+        "write_to_system": false
     },
-    {
-        "remarks": "💦 5 - Trojan - Domain : 443",
-        "version": {
-            "min": "25.10.15"
+    "experimental": {
+        "cache_file": {
+            "enabled": true,
+            "store_fakeip": true
         },
-        "log": {
-            "loglevel": "warning"
-        },
-        "dns": {
-            "servers": [
-                {
-                    "address": "https://8.8.8.8/dns-query",
-                    "tag": "remote-dns"
-                },
-                {
-                    "address": "76.76.2.175",
-                    "domains": [
-                        "full:yasin---uyjdutefggfddgg.p-ya30n.workers.dev"
-                    ],
-                    "skipFallback": true
-                }
-            ],
-            "queryStrategy": "UseIP",
-            "tag": "dns"
-        },
-        "inbounds": [
-            {
-                "listen": "127.0.0.1",
-                "port": 10808,
-                "protocol": "socks",
-                "settings": {
-                    "auth": "noauth",
-                    "udp": true
-                },
-                "sniffing": {
-                    "destOverride": [
-                        "http",
-                        "tls"
-                    ],
-                    "enabled": true,
-                    "routeOnly": true
-                },
-                "tag": "mixed-in"
-            },
-            {
-                "listen": "127.0.0.1",
-                "port": 10853,
-                "protocol": "dokodemo-door",
-                "settings": {
-                    "address": "1.1.1.1",
-                    "network": "tcp,udp",
-                    "port": 53
-                },
-                "tag": "dns-in"
-            }
-        ],
-        "outbounds": [
-            {
-                "protocol": "trojan",
-                "settings": {
-                    "servers": [
-                        {
-                            "address": "yasin---uyjdutefggfddgg.p-ya30n.workers.dev",
-                            "port": 443,
-                            "password": "}qE6zkl(xo<["
-                        }
-                    ]
-                },
-                "streamSettings": {
-                    "network": "ws",
-                    "wsSettings": {
-                        "host": "yasin---uyjdutefggfddgg.p-ya30n.workers.dev",
-                        "path": "/eyJqdW5rIjoiWlJ4R0RYNHY4Q3VqIiwicHJvdG9jb2wiOiJ0ciIsIm1vZGUiOiJwcm94eWlwIiwicGFuZWxJUHMiOltdfQ==?ed=2560"
-                    },
-                    "security": "tls",
-                    "tlsSettings": {
-                        "serverName": "Yasin---UyJDUTefGgfdDgG.P-ya30n.worKers.deV",
-                        "fingerprint": "randomized",
-                        "alpn": [
-                            "http/1.1"
-                        ],
-                        "allowInsecure": false
-                    },
-                    "sockopt": {
-                        "domainStrategy": "UseIP",
-                        "happyEyeballs": {
-                            "tryDelayMs": 250,
-                            "prioritizeIPv6": false,
-                            "interleave": 2,
-                            "maxConcurrentTry": 4
-                        }
-                    }
-                },
-                "tag": "proxy"
-            },
-            {
-                "protocol": "dns",
-                "settings": {
-                    "nonIPQuery": "reject"
-                },
-                "tag": "dns-out"
-            },
-            {
-                "protocol": "freedom",
-                "settings": {
-                    "domainStrategy": "UseIP"
-                },
-                "tag": "direct"
-            },
-            {
-                "protocol": "blackhole",
-                "settings": {
-                    "response": {
-                        "type": "http"
-                    }
-                },
-                "tag": "block"
-            }
-        ],
-        "routing": {
-            "domainStrategy": "IPIfNonMatch",
-            "rules": [
-                {
-                    "inboundTag": [
-                        "mixed-in"
-                    ],
-                    "port": 53,
-                    "outboundTag": "dns-out",
-                    "type": "field"
-                },
-                {
-                    "inboundTag": [
-                        "dns-in"
-                    ],
-                    "outboundTag": "dns-out",
-                    "type": "field"
-                },
-                {
-                    "inboundTag": [
-                        "remote-dns"
-                    ],
-                    "outboundTag": "proxy",
-                    "type": "field"
-                },
-                {
-                    "inboundTag": [
-                        "dns"
-                    ],
-                    "outboundTag": "direct",
-                    "type": "field"
-                },
-                {
-                    "domain": [
-                        "geosite:private"
-                    ],
-                    "outboundTag": "direct",
-                    "type": "field"
-                },
-                {
-                    "ip": [
-                        "geoip:private"
-                    ],
-                    "outboundTag": "direct",
-                    "type": "field"
-                },
-                {
-                    "network": "udp",
-                    "outboundTag": "block",
-                    "type": "field"
-                },
-                {
-                    "network": "tcp",
-                    "outboundTag": "proxy",
-                    "type": "field"
-                }
-            ]
-        },
-        "policy": {
-            "levels": {
-                "0": {
-                    "connIdle": 300,
-                    "handshake": 4,
-                    "uplinkOnly": 1,
-                    "downlinkOnly": 1
-                }
-            },
-            "system": {
-                "statsOutboundUplink": true,
-                "statsOutboundDownlink": true
-            }
-        },
-        "stats": {}
-    },
-    {
-        "remarks": "💦 6 - Trojan - Domain : 443",
-        "version": {
-            "min": "25.10.15"
-        },
-        "log": {
-            "loglevel": "warning"
-        },
-        "dns": {
-            "servers": [
-                {
-                    "address": "https://8.8.8.8/dns-query",
-                    "tag": "remote-dns"
-                },
-                {
-                    "address": "76.76.2.175",
-                    "domains": [
-                        "full:www.speedtest.net"
-                    ],
-                    "skipFallback": true
-                }
-            ],
-            "queryStrategy": "UseIP",
-            "tag": "dns"
-        },
-        "inbounds": [
-            {
-                "listen": "127.0.0.1",
-                "port": 10808,
-                "protocol": "socks",
-                "settings": {
-                    "auth": "noauth",
-                    "udp": true
-                },
-                "sniffing": {
-                    "destOverride": [
-                        "http",
-                        "tls"
-                    ],
-                    "enabled": true,
-                    "routeOnly": true
-                },
-                "tag": "mixed-in"
-            },
-            {
-                "listen": "127.0.0.1",
-                "port": 10853,
-                "protocol": "dokodemo-door",
-                "settings": {
-                    "address": "1.1.1.1",
-                    "network": "tcp,udp",
-                    "port": 53
-                },
-                "tag": "dns-in"
-            }
-        ],
-        "outbounds": [
-            {
-                "protocol": "trojan",
-                "settings": {
-                    "servers": [
-                        {
-                            "address": "www.speedtest.net",
-                            "port": 443,
-                            "password": "}qE6zkl(xo<["
-                        }
-                    ]
-                },
-                "streamSettings": {
-                    "network": "ws",
-                    "wsSettings": {
-                        "host": "yasin---uyjdutefggfddgg.p-ya30n.workers.dev",
-                        "path": "/eyJqdW5rIjoiVDR0bjdHeDAiLCJwcm90b2NvbCI6InRyIiwibW9kZSI6InByb3h5aXAiLCJwYW5lbElQcyI6W119?ed=2560"
-                    },
-                    "security": "tls",
-                    "tlsSettings": {
-                        "serverName": "Yasin---uyJdutEfGgfDdGg.p-yA30N.worKerS.dEv",
-                        "fingerprint": "randomized",
-                        "alpn": [
-                            "http/1.1"
-                        ],
-                        "allowInsecure": false
-                    },
-                    "sockopt": {
-                        "domainStrategy": "UseIP",
-                        "happyEyeballs": {
-                            "tryDelayMs": 250,
-                            "prioritizeIPv6": false,
-                            "interleave": 2,
-                            "maxConcurrentTry": 4
-                        }
-                    }
-                },
-                "tag": "proxy"
-            },
-            {
-                "protocol": "dns",
-                "settings": {
-                    "nonIPQuery": "reject"
-                },
-                "tag": "dns-out"
-            },
-            {
-                "protocol": "freedom",
-                "settings": {
-                    "domainStrategy": "UseIP"
-                },
-                "tag": "direct"
-            },
-            {
-                "protocol": "blackhole",
-                "settings": {
-                    "response": {
-                        "type": "http"
-                    }
-                },
-                "tag": "block"
-            }
-        ],
-        "routing": {
-            "domainStrategy": "IPIfNonMatch",
-            "rules": [
-                {
-                    "inboundTag": [
-                        "mixed-in"
-                    ],
-                    "port": 53,
-                    "outboundTag": "dns-out",
-                    "type": "field"
-                },
-                {
-                    "inboundTag": [
-                        "dns-in"
-                    ],
-                    "outboundTag": "dns-out",
-                    "type": "field"
-                },
-                {
-                    "inboundTag": [
-                        "remote-dns"
-                    ],
-                    "outboundTag": "proxy",
-                    "type": "field"
-                },
-                {
-                    "inboundTag": [
-                        "dns"
-                    ],
-                    "outboundTag": "direct",
-                    "type": "field"
-                },
-                {
-                    "domain": [
-                        "geosite:private"
-                    ],
-                    "outboundTag": "direct",
-                    "type": "field"
-                },
-                {
-                    "ip": [
-                        "geoip:private"
-                    ],
-                    "outboundTag": "direct",
-                    "type": "field"
-                },
-                {
-                    "network": "udp",
-                    "outboundTag": "block",
-                    "type": "field"
-                },
-                {
-                    "network": "tcp",
-                    "outboundTag": "proxy",
-                    "type": "field"
-                }
-            ]
-        },
-        "policy": {
-            "levels": {
-                "0": {
-                    "connIdle": 300,
-                    "handshake": 4,
-                    "uplinkOnly": 1,
-                    "downlinkOnly": 1
-                }
-            },
-            "system": {
-                "statsOutboundUplink": true,
-                "statsOutboundDownlink": true
-            }
-        },
-        "stats": {}
-    },
-    {
-        "remarks": "💦 7 - Trojan - IPv4 : 443",
-        "version": {
-            "min": "25.10.15"
-        },
-        "log": {
-            "loglevel": "warning"
-        },
-        "dns": {
-            "servers": [
-                {
-                    "address": "https://8.8.8.8/dns-query",
-                    "tag": "remote-dns"
-                }
-            ],
-            "queryStrategy": "UseIP",
-            "tag": "dns"
-        },
-        "inbounds": [
-            {
-                "listen": "127.0.0.1",
-                "port": 10808,
-                "protocol": "socks",
-                "settings": {
-                    "auth": "noauth",
-                    "udp": true
-                },
-                "sniffing": {
-                    "destOverride": [
-                        "http",
-                        "tls"
-                    ],
-                    "enabled": true,
-                    "routeOnly": true
-                },
-                "tag": "mixed-in"
-            },
-            {
-                "listen": "127.0.0.1",
-                "port": 10853,
-                "protocol": "dokodemo-door",
-                "settings": {
-                    "address": "1.1.1.1",
-                    "network": "tcp,udp",
-                    "port": 53
-                },
-                "tag": "dns-in"
-            }
-        ],
-        "outbounds": [
-            {
-                "protocol": "trojan",
-                "settings": {
-                    "servers": [
-                        {
-                            "address": "172.67.188.133",
-                            "port": 443,
-                            "password": "}qE6zkl(xo<["
-                        }
-                    ]
-                },
-                "streamSettings": {
-                    "network": "ws",
-                    "wsSettings": {
-                        "host": "yasin---uyjdutefggfddgg.p-ya30n.workers.dev",
-                        "path": "/eyJqdW5rIjoid3doTktZelp5RXAiLCJwcm90b2NvbCI6InRyIiwibW9kZSI6InByb3h5aXAiLCJwYW5lbElQcyI6W119?ed=2560"
-                    },
-                    "security": "tls",
-                    "tlsSettings": {
-                        "serverName": "yaSin---uyJdUTeFGgFDDgg.p-Ya30n.workErs.Dev",
-                        "fingerprint": "randomized",
-                        "alpn": [
-                            "http/1.1"
-                        ],
-                        "allowInsecure": false
-                    },
-                    "sockopt": {
-                        "domainStrategy": "UseIP",
-                        "happyEyeballs": {
-                            "tryDelayMs": 250,
-                            "prioritizeIPv6": false,
-                            "interleave": 2,
-                            "maxConcurrentTry": 4
-                        }
-                    }
-                },
-                "tag": "proxy"
-            },
-            {
-                "protocol": "dns",
-                "settings": {
-                    "nonIPQuery": "reject"
-                },
-                "tag": "dns-out"
-            },
-            {
-                "protocol": "freedom",
-                "settings": {
-                    "domainStrategy": "UseIP"
-                },
-                "tag": "direct"
-            },
-            {
-                "protocol": "blackhole",
-                "settings": {
-                    "response": {
-                        "type": "http"
-                    }
-                },
-                "tag": "block"
-            }
-        ],
-        "routing": {
-            "domainStrategy": "IPIfNonMatch",
-            "rules": [
-                {
-                    "inboundTag": [
-                        "mixed-in"
-                    ],
-                    "port": 53,
-                    "outboundTag": "dns-out",
-                    "type": "field"
-                },
-                {
-                    "inboundTag": [
-                        "dns-in"
-                    ],
-                    "outboundTag": "dns-out",
-                    "type": "field"
-                },
-                {
-                    "inboundTag": [
-                        "remote-dns"
-                    ],
-                    "outboundTag": "proxy",
-                    "type": "field"
-                },
-                {
-                    "inboundTag": [
-                        "dns"
-                    ],
-                    "outboundTag": "direct",
-                    "type": "field"
-                },
-                {
-                    "domain": [
-                        "geosite:private"
-                    ],
-                    "outboundTag": "direct",
-                    "type": "field"
-                },
-                {
-                    "ip": [
-                        "geoip:private"
-                    ],
-                    "outboundTag": "direct",
-                    "type": "field"
-                },
-                {
-                    "network": "udp",
-                    "outboundTag": "block",
-                    "type": "field"
-                },
-                {
-                    "network": "tcp",
-                    "outboundTag": "proxy",
-                    "type": "field"
-                }
-            ]
-        },
-        "policy": {
-            "levels": {
-                "0": {
-                    "connIdle": 300,
-                    "handshake": 4,
-                    "uplinkOnly": 1,
-                    "downlinkOnly": 1
-                }
-            },
-            "system": {
-                "statsOutboundUplink": true,
-                "statsOutboundDownlink": true
-            }
-        },
-        "stats": {}
-    },
-    {
-        "remarks": "💦 8 - Trojan - IPv4 : 443",
-        "version": {
-            "min": "25.10.15"
-        },
-        "log": {
-            "loglevel": "warning"
-        },
-        "dns": {
-            "servers": [
-                {
-                    "address": "https://8.8.8.8/dns-query",
-                    "tag": "remote-dns"
-                }
-            ],
-            "queryStrategy": "UseIP",
-            "tag": "dns"
-        },
-        "inbounds": [
-            {
-                "listen": "127.0.0.1",
-                "port": 10808,
-                "protocol": "socks",
-                "settings": {
-                    "auth": "noauth",
-                    "udp": true
-                },
-                "sniffing": {
-                    "destOverride": [
-                        "http",
-                        "tls"
-                    ],
-                    "enabled": true,
-                    "routeOnly": true
-                },
-                "tag": "mixed-in"
-            },
-            {
-                "listen": "127.0.0.1",
-                "port": 10853,
-                "protocol": "dokodemo-door",
-                "settings": {
-                    "address": "1.1.1.1",
-                    "network": "tcp,udp",
-                    "port": 53
-                },
-                "tag": "dns-in"
-            }
-        ],
-        "outbounds": [
-            {
-                "protocol": "trojan",
-                "settings": {
-                    "servers": [
-                        {
-                            "address": "104.21.36.70",
-                            "port": 443,
-                            "password": "}qE6zkl(xo<["
-                        }
-                    ]
-                },
-                "streamSettings": {
-                    "network": "ws",
-                    "wsSettings": {
-                        "host": "yasin---uyjdutefggfddgg.p-ya30n.workers.dev",
-                        "path": "/eyJqdW5rIjoiMUhhcUhZUWIiLCJwcm90b2NvbCI6InRyIiwibW9kZSI6InByb3h5aXAiLCJwYW5lbElQcyI6W119?ed=2560"
-                    },
-                    "security": "tls",
-                    "tlsSettings": {
-                        "serverName": "YaSin---uYJDUTefgGfDdGG.p-ya30N.WorkeRS.Dev",
-                        "fingerprint": "randomized",
-                        "alpn": [
-                            "http/1.1"
-                        ],
-                        "allowInsecure": false
-                    },
-                    "sockopt": {
-                        "domainStrategy": "UseIP",
-                        "happyEyeballs": {
-                            "tryDelayMs": 250,
-                            "prioritizeIPv6": false,
-                            "interleave": 2,
-                            "maxConcurrentTry": 4
-                        }
-                    }
-                },
-                "tag": "proxy"
-            },
-            {
-                "protocol": "dns",
-                "settings": {
-                    "nonIPQuery": "reject"
-                },
-                "tag": "dns-out"
-            },
-            {
-                "protocol": "freedom",
-                "settings": {
-                    "domainStrategy": "UseIP"
-                },
-                "tag": "direct"
-            },
-            {
-                "protocol": "blackhole",
-                "settings": {
-                    "response": {
-                        "type": "http"
-                    }
-                },
-                "tag": "block"
-            }
-        ],
-        "routing": {
-            "domainStrategy": "IPIfNonMatch",
-            "rules": [
-                {
-                    "inboundTag": [
-                        "mixed-in"
-                    ],
-                    "port": 53,
-                    "outboundTag": "dns-out",
-                    "type": "field"
-                },
-                {
-                    "inboundTag": [
-                        "dns-in"
-                    ],
-                    "outboundTag": "dns-out",
-                    "type": "field"
-                },
-                {
-                    "inboundTag": [
-                        "remote-dns"
-                    ],
-                    "outboundTag": "proxy",
-                    "type": "field"
-                },
-                {
-                    "inboundTag": [
-                        "dns"
-                    ],
-                    "outboundTag": "direct",
-                    "type": "field"
-                },
-                {
-                    "domain": [
-                        "geosite:private"
-                    ],
-                    "outboundTag": "direct",
-                    "type": "field"
-                },
-                {
-                    "ip": [
-                        "geoip:private"
-                    ],
-                    "outboundTag": "direct",
-                    "type": "field"
-                },
-                {
-                    "network": "udp",
-                    "outboundTag": "block",
-                    "type": "field"
-                },
-                {
-                    "network": "tcp",
-                    "outboundTag": "proxy",
-                    "type": "field"
-                }
-            ]
-        },
-        "policy": {
-            "levels": {
-                "0": {
-                    "connIdle": 300,
-                    "handshake": 4,
-                    "uplinkOnly": 1,
-                    "downlinkOnly": 1
-                }
-            },
-            "system": {
-                "statsOutboundUplink": true,
-                "statsOutboundDownlink": true
-            }
-        },
-        "stats": {}
-    },
-    {
-        "remarks": "💦 Best Ping 🚀",
-        "version": {
-            "min": "25.10.15"
-        },
-        "log": {
-            "loglevel": "warning"
-        },
-        "dns": {
-            "servers": [
-                {
-                    "address": "https://8.8.8.8/dns-query",
-                    "tag": "remote-dns"
-                },
-                {
-                    "address": "76.76.2.175",
-                    "domains": [
-                        "full:yasin---uyjdutefggfddgg.p-ya30n.workers.dev",
-                        "full:www.speedtest.net"
-                    ],
-                    "skipFallback": true
-                }
-            ],
-            "queryStrategy": "UseIP",
-            "tag": "dns"
-        },
-        "inbounds": [
-            {
-                "listen": "127.0.0.1",
-                "port": 10808,
-                "protocol": "socks",
-                "settings": {
-                    "auth": "noauth",
-                    "udp": true
-                },
-                "sniffing": {
-                    "destOverride": [
-                        "http",
-                        "tls"
-                    ],
-                    "enabled": true,
-                    "routeOnly": true
-                },
-                "tag": "mixed-in"
-            },
-            {
-                "listen": "127.0.0.1",
-                "port": 10853,
-                "protocol": "dokodemo-door",
-                "settings": {
-                    "address": "1.1.1.1",
-                    "network": "tcp,udp",
-                    "port": 53
-                },
-                "tag": "dns-in"
-            }
-        ],
-        "outbounds": [
-            {
-                "protocol": "trojan",
-                "settings": {
-                    "servers": [
-                        {
-                            "address": "yasin---uyjdutefggfddgg.p-ya30n.workers.dev",
-                            "port": 80,
-                            "password": "}qE6zkl(xo<["
-                        }
-                    ]
-                },
-                "streamSettings": {
-                    "network": "ws",
-                    "wsSettings": {
-                        "host": "yasin---uyjdutefggfddgg.p-ya30n.workers.dev",
-                        "path": "/eyJqdW5rIjoidTI3YktUbTN5RiIsInByb3RvY29sIjoidHIiLCJtb2RlIjoicHJveHlpcCIsInBhbmVsSVBzIjpbXX0=?ed=2560"
-                    },
-                    "security": "none",
-                    "sockopt": {
-                        "domainStrategy": "UseIP",
-                        "happyEyeballs": {
-                            "tryDelayMs": 250,
-                            "prioritizeIPv6": false,
-                            "interleave": 2,
-                            "maxConcurrentTry": 4
-                        }
-                    }
-                },
-                "tag": "proxy-1"
-            },
-            {
-                "protocol": "trojan",
-                "settings": {
-                    "servers": [
-                        {
-                            "address": "www.speedtest.net",
-                            "port": 80,
-                            "password": "}qE6zkl(xo<["
-                        }
-                    ]
-                },
-                "streamSettings": {
-                    "network": "ws",
-                    "wsSettings": {
-                        "host": "yasin---uyjdutefggfddgg.p-ya30n.workers.dev",
-                        "path": "/eyJqdW5rIjoiQWJhem9GYzlDWGYiLCJwcm90b2NvbCI6InRyIiwibW9kZSI6InByb3h5aXAiLCJwYW5lbElQcyI6W119?ed=2560"
-                    },
-                    "security": "none",
-                    "sockopt": {
-                        "domainStrategy": "UseIP",
-                        "happyEyeballs": {
-                            "tryDelayMs": 250,
-                            "prioritizeIPv6": false,
-                            "interleave": 2,
-                            "maxConcurrentTry": 4
-                        }
-                    }
-                },
-                "tag": "proxy-2"
-            },
-            {
-                "protocol": "trojan",
-                "settings": {
-                    "servers": [
-                        {
-                            "address": "172.67.188.133",
-                            "port": 80,
-                            "password": "}qE6zkl(xo<["
-                        }
-                    ]
-                },
-                "streamSettings": {
-                    "network": "ws",
-                    "wsSettings": {
-                        "host": "yasin---uyjdutefggfddgg.p-ya30n.workers.dev",
-                        "path": "/eyJqdW5rIjoic1IxQ2Ezbm84biIsInByb3RvY29sIjoidHIiLCJtb2RlIjoicHJveHlpcCIsInBhbmVsSVBzIjpbXX0=?ed=2560"
-                    },
-                    "security": "none",
-                    "sockopt": {
-                        "domainStrategy": "UseIP",
-                        "happyEyeballs": {
-                            "tryDelayMs": 250,
-                            "prioritizeIPv6": false,
-                            "interleave": 2,
-                            "maxConcurrentTry": 4
-                        }
-                    }
-                },
-                "tag": "proxy-3"
-            },
-            {
-                "protocol": "trojan",
-                "settings": {
-                    "servers": [
-                        {
-                            "address": "104.21.36.70",
-                            "port": 80,
-                            "password": "}qE6zkl(xo<["
-                        }
-                    ]
-                },
-                "streamSettings": {
-                    "network": "ws",
-                    "wsSettings": {
-                        "host": "yasin---uyjdutefggfddgg.p-ya30n.workers.dev",
-                        "path": "/eyJqdW5rIjoiS2RLcm8zZW14NyIsInByb3RvY29sIjoidHIiLCJtb2RlIjoicHJveHlpcCIsInBhbmVsSVBzIjpbXX0=?ed=2560"
-                    },
-                    "security": "none",
-                    "sockopt": {
-                        "domainStrategy": "UseIP",
-                        "happyEyeballs": {
-                            "tryDelayMs": 250,
-                            "prioritizeIPv6": false,
-                            "interleave": 2,
-                            "maxConcurrentTry": 4
-                        }
-                    }
-                },
-                "tag": "proxy-4"
-            },
-            {
-                "protocol": "trojan",
-                "settings": {
-                    "servers": [
-                        {
-                            "address": "yasin---uyjdutefggfddgg.p-ya30n.workers.dev",
-                            "port": 443,
-                            "password": "}qE6zkl(xo<["
-                        }
-                    ]
-                },
-                "streamSettings": {
-                    "network": "ws",
-                    "wsSettings": {
-                        "host": "yasin---uyjdutefggfddgg.p-ya30n.workers.dev",
-                        "path": "/eyJqdW5rIjoiWlJ4R0RYNHY4Q3VqIiwicHJvdG9jb2wiOiJ0ciIsIm1vZGUiOiJwcm94eWlwIiwicGFuZWxJUHMiOltdfQ==?ed=2560"
-                    },
-                    "security": "tls",
-                    "tlsSettings": {
-                        "serverName": "Yasin---UyJDUTefGgfdDgG.P-ya30n.worKers.deV",
-                        "fingerprint": "randomized",
-                        "alpn": [
-                            "http/1.1"
-                        ],
-                        "allowInsecure": false
-                    },
-                    "sockopt": {
-                        "domainStrategy": "UseIP",
-                        "happyEyeballs": {
-                            "tryDelayMs": 250,
-                            "prioritizeIPv6": false,
-                            "interleave": 2,
-                            "maxConcurrentTry": 4
-                        }
-                    }
-                },
-                "tag": "proxy-5"
-            },
-            {
-                "protocol": "trojan",
-                "settings": {
-                    "servers": [
-                        {
-                            "address": "www.speedtest.net",
-                            "port": 443,
-                            "password": "}qE6zkl(xo<["
-                        }
-                    ]
-                },
-                "streamSettings": {
-                    "network": "ws",
-                    "wsSettings": {
-                        "host": "yasin---uyjdutefggfddgg.p-ya30n.workers.dev",
-                        "path": "/eyJqdW5rIjoiVDR0bjdHeDAiLCJwcm90b2NvbCI6InRyIiwibW9kZSI6InByb3h5aXAiLCJwYW5lbElQcyI6W119?ed=2560"
-                    },
-                    "security": "tls",
-                    "tlsSettings": {
-                        "serverName": "Yasin---uyJdutEfGgfDdGg.p-yA30N.worKerS.dEv",
-                        "fingerprint": "randomized",
-                        "alpn": [
-                            "http/1.1"
-                        ],
-                        "allowInsecure": false
-                    },
-                    "sockopt": {
-                        "domainStrategy": "UseIP",
-                        "happyEyeballs": {
-                            "tryDelayMs": 250,
-                            "prioritizeIPv6": false,
-                            "interleave": 2,
-                            "maxConcurrentTry": 4
-                        }
-                    }
-                },
-                "tag": "proxy-6"
-            },
-            {
-                "protocol": "trojan",
-                "settings": {
-                    "servers": [
-                        {
-                            "address": "172.67.188.133",
-                            "port": 443,
-                            "password": "}qE6zkl(xo<["
-                        }
-                    ]
-                },
-                "streamSettings": {
-                    "network": "ws",
-                    "wsSettings": {
-                        "host": "yasin---uyjdutefggfddgg.p-ya30n.workers.dev",
-                        "path": "/eyJqdW5rIjoid3doTktZelp5RXAiLCJwcm90b2NvbCI6InRyIiwibW9kZSI6InByb3h5aXAiLCJwYW5lbElQcyI6W119?ed=2560"
-                    },
-                    "security": "tls",
-                    "tlsSettings": {
-                        "serverName": "yaSin---uyJdUTeFGgFDDgg.p-Ya30n.workErs.Dev",
-                        "fingerprint": "randomized",
-                        "alpn": [
-                            "http/1.1"
-                        ],
-                        "allowInsecure": false
-                    },
-                    "sockopt": {
-                        "domainStrategy": "UseIP",
-                        "happyEyeballs": {
-                            "tryDelayMs": 250,
-                            "prioritizeIPv6": false,
-                            "interleave": 2,
-                            "maxConcurrentTry": 4
-                        }
-                    }
-                },
-                "tag": "proxy-7"
-            },
-            {
-                "protocol": "trojan",
-                "settings": {
-                    "servers": [
-                        {
-                            "address": "104.21.36.70",
-                            "port": 443,
-                            "password": "}qE6zkl(xo<["
-                        }
-                    ]
-                },
-                "streamSettings": {
-                    "network": "ws",
-                    "wsSettings": {
-                        "host": "yasin---uyjdutefggfddgg.p-ya30n.workers.dev",
-                        "path": "/eyJqdW5rIjoiMUhhcUhZUWIiLCJwcm90b2NvbCI6InRyIiwibW9kZSI6InByb3h5aXAiLCJwYW5lbElQcyI6W119?ed=2560"
-                    },
-                    "security": "tls",
-                    "tlsSettings": {
-                        "serverName": "YaSin---uYJDUTefgGfDdGG.p-ya30N.WorkeRS.Dev",
-                        "fingerprint": "randomized",
-                        "alpn": [
-                            "http/1.1"
-                        ],
-                        "allowInsecure": false
-                    },
-                    "sockopt": {
-                        "domainStrategy": "UseIP",
-                        "happyEyeballs": {
-                            "tryDelayMs": 250,
-                            "prioritizeIPv6": false,
-                            "interleave": 2,
-                            "maxConcurrentTry": 4
-                        }
-                    }
-                },
-                "tag": "proxy-8"
-            },
-            {
-                "protocol": "dns",
-                "settings": {
-                    "nonIPQuery": "reject"
-                },
-                "tag": "dns-out"
-            },
-            {
-                "protocol": "freedom",
-                "settings": {
-                    "domainStrategy": "UseIP"
-                },
-                "tag": "direct"
-            },
-            {
-                "protocol": "blackhole",
-                "settings": {
-                    "response": {
-                        "type": "http"
-                    }
-                },
-                "tag": "block"
-            }
-        ],
-        "routing": {
-            "domainStrategy": "IPIfNonMatch",
-            "rules": [
-                {
-                    "inboundTag": [
-                        "mixed-in"
-                    ],
-                    "port": 53,
-                    "outboundTag": "dns-out",
-                    "type": "field"
-                },
-                {
-                    "inboundTag": [
-                        "dns-in"
-                    ],
-                    "outboundTag": "dns-out",
-                    "type": "field"
-                },
-                {
-                    "inboundTag": [
-                        "remote-dns"
-                    ],
-                    "balancerTag": "all-proxies",
-                    "type": "field"
-                },
-                {
-                    "inboundTag": [
-                        "dns"
-                    ],
-                    "outboundTag": "direct",
-                    "type": "field"
-                },
-                {
-                    "domain": [
-                        "geosite:private"
-                    ],
-                    "outboundTag": "direct",
-                    "type": "field"
-                },
-                {
-                    "ip": [
-                        "geoip:private"
-                    ],
-                    "outboundTag": "direct",
-                    "type": "field"
-                },
-                {
-                    "network": "udp",
-                    "outboundTag": "block",
-                    "type": "field"
-                },
-                {
-                    "network": "tcp",
-                    "balancerTag": "all-proxies",
-                    "type": "field"
-                }
-            ],
-            "balancers": [
-                {
-                    "tag": "all-proxies",
-                    "selector": [
-                        "proxy"
-                    ],
-                    "strategy": {
-                        "type": "leastPing"
-                    },
-                    "fallbackTag": "proxy-2"
-                }
-            ]
-        },
-        "observatory": {
-            "subjectSelector": [
-                "proxy"
-            ],
-            "probeUrl": "https://www.gstatic.com/generate_204",
-            "probeInterval": "30s",
-            "enableConcurrency": true
-        },
-        "policy": {
-            "levels": {
-                "0": {
-                    "connIdle": 300,
-                    "handshake": 4,
-                    "uplinkOnly": 1,
-                    "downlinkOnly": 1
-                }
-            },
-            "system": {
-                "statsOutboundUplink": true,
-                "statsOutboundDownlink": true
-            }
-        },
-        "stats": {}
+        "clash_api": {
+            "external_controller": "127.0.0.1:9090",
+            "external_ui": "ui",
+            "external_ui_download_url": "https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip",
+            "external_ui_download_detour": "direct",
+            "default_mode": "Rule"
+        }
     }
-]
+}
